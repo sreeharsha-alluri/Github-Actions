@@ -1,3 +1,5 @@
+Reference link : https://docs.github.com/en/actions/migrating-to-github-actions/automated-migrations/migrating-from-jenkins-with-github-actions-importer
+
 Pipeline migration from Jenkins to Github (GitHub actions)
 
 Jenkins installation
@@ -23,3 +25,17 @@ gh --version
 gh auth login
 gh extension install github/gh-actions-importer
 gh actions-importer configure
+gh actions-importer update
+gh actions-importer forecast jenkins --output-dir tmp/forecast
+
+gh actions-importer dry-run jenkins --source-url my-jenkins-project --output-dir tmp/dry-run
+gh actions-importer dry-run jenkins --source-url http://3.90.111.17:8080/job/Pipeline/ --output-dir tmp/dry-run
+
+gh actions-importer migrate jenkins --target-url https://github.com/:owner/:repo --output-dir tmp/migrate --source-url my-jenkins-project
+gh actions-importer migrate jenkins --target-url https://github.com/sreeharsha-alluri/Github-Actions.git --output-dir tmp/migrate --source-url http://3.90.111.17:8080/job/Pipeline/
+
+Incase if any error pops up stating ensure that docker and docker daemon are running then try the following commands
+whoami
+sudo docker usermod -aG docker <user_name>
+sudo systemctl restart docker
+sudo reboot
